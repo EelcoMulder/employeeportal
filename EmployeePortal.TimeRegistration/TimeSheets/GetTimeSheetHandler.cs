@@ -1,0 +1,54 @@
+﻿using EmployeePortal.Infrastructure.RequestHandling;
+using EmployeePortal.TimeRegistration.Infrastructure;
+using EmployeePortal.TimeRegistration.Model;
+using Optional;
+using System.Linq;
+
+namespace EmployeePortal.TimeRegistration.TimeSheets
+{
+    internal class GetTimeSheetRequest : ValidatedRequest
+    {
+        public GetTimeSheetRequest(int id)
+        {
+            TimeSheetId = id;
+            if (TimeSheetId < 1)
+            {
+                AddException("Timesheet id not valid");
+            }
+        }
+
+        public int TimeSheetId { get; }
+    }
+
+    internal class GetTimeSheetReponse : IResponse
+    {
+        public GetTimeSheetReponse(Option<TimeSheet> timeSheet)
+        {
+            TimeSheet = timeSheet;
+        }
+
+        public Option<TimeSheet> TimeSheet { get; }
+    }
+
+    internal class GetTimeSheetHandler : RequestHandler<GetTimeSheetRequest, GetTimeSheetReponse>
+    {
+        private readonly TimeSheetContext _timeSheetContext;
+
+        public GetTimeSheetHandler(GetTimeSheetRequest getTimeSheetRequest, TimeSheetContext timeSheetContext) 
+            : base(getTimeSheetRequest)
+        {
+            _timeSheetContext = timeSheetContext;
+        }
+
+        public override GetTimeSheetReponse Handle()
+        {
+            var timesheet = 
+                _timeSheetContext
+                    .TimeSheets
+                    .FirstOrDefault(t => t.Id.Equals(Request.TimeSheetId));
+            return timesheet == null
+                ? new GetTimeSheetReponse(Option.None<TimeSheet>())
+                : new GetTimeSheetReponse(Option.Some(timesheet));
+        }
+    }
+}

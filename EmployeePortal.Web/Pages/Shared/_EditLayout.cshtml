@@ -1,0 +1,20 @@
+﻿@model EmployeePortal.Infrastructure.PageModel.RequestPageModel
+@{
+    Layout = "_Layout";
+}
+<h1>@Model.PageTitle</h1>
+@{
+    if (Model.Errors.Any())
+    {
+        <ul>
+            @foreach (var e in Model.Errors)
+            {
+                <li>@e</li>
+            }
+        </ul>
+    }
+    else
+    {
+        @RenderSection("EditForm", required: false);
+    }
+}

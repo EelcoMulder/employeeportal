@@ -1,0 +1,12 @@
+﻿@page "{id?}"
+@{
+    Layout = "_EditLayout";
+}
+@model EmployeePortal.TimeRegistration.Pages.Timesheet.EditModel
+<h1>Edit timesheet</h1>
+@section EditForm{
+    @Html.Raw(Model.TimeSheet.Match(
+        some: t => $"Username: {t.UserId}",
+        none: () => "Not found"
+        ));
+}
