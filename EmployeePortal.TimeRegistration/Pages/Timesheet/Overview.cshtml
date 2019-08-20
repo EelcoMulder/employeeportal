@@ -1,4 +1,30 @@
 ﻿@page
-@model EmployeePortal.TimeRegistration.Pages.Timesheet.OverviewModel
 @{
+    Layout = "_Layout";
+}
+@model EmployeePortal.TimeRegistration.Pages.Timesheet.OverviewModel
+<div id="timesheets-list-component">
+    <div v-if="isViewReady == true">
+        <table>
+            <tr>
+                <td>Maand</td>
+                <td>Jaar</td>
+                <td>Actie</td>
+            </tr>
+            <tr v-for="t in timesheets">
+                <td></td>
+                <td>{{ t.month }}</td>
+                <td>{{ t.year }}</td>
+                <td><a v-bind:href="'/TimeSheet/Edit/' + t.id">Edit</a></td>
+            </tr>
+        </table>
+    </div>
+    <div v-else>
+        <div>Loading data...</div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/lib/vue/vue.js"></script>
+    <script src="~/lib/axios/axios.min.js"></script>
+    <script src="~/TimeSheets/Overview.js"></script>
 }

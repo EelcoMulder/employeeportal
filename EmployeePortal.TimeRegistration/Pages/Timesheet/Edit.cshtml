@@ -1,12 +1,34 @@
 ﻿@page "{id?}"
 @{
-    Layout = "_EditLayout";
+    Layout = "_Layout";
 }
 @model EmployeePortal.TimeRegistration.Pages.Timesheet.EditModel
 <h1>Edit timesheet</h1>
-@section EditForm{
-    @Html.Raw(Model.TimeSheet.Match(
-        some: t => $"Username: {t.UserId}",
-        none: () => "Not found"
-        ));
+<div id="timesheets-form-component">
+    <div v-if="isViewReady == true">
+        <table>
+            <tr>
+                <td>Uren</td>
+                <td>Omschrijving</td>
+            </tr>
+            <tr v-for="t in timesheet.hourLines">
+                <td>
+                    <input v-bind:id="'hours_' + t.id"
+                        v-model="t.hours">
+                </td>
+                <td>
+                    <input v-bind:id="'description_' + t.id"
+                        v-model="t.description">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div v-else>
+        <div>Loading data...</div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/lib/vue/vue.js"></script>
+    <script src="~/lib/axios/axios.min.js"></script>
+    <script src="~/TimeSheets/Edit.js"></script>
 }

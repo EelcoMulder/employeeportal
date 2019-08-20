@@ -4,6 +4,7 @@ using System.Linq;
 using EmployeePortal.Infrastructure.RequestHandling;
 using EmployeePortal.TimeRegistration.Infrastructure;
 using EmployeePortal.TimeRegistration.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeePortal.TimeRegistration.TimeSheets
 {

@@ -4,6 +4,8 @@ using EmployeePortal.TimeRegistration.Model;
 using EmployeePortal.TimeRegistration.TimeSheets;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
+using EmployeePortal.Infrastructure.Services;
 
 namespace EmployeePortal.TimeRegistration.EndPoints
 {
@@ -11,7 +13,13 @@ namespace EmployeePortal.TimeRegistration.EndPoints
     [ApiController]
     public class TimeSheetController : RequestController
     {
-        public TimeSheetController(RequestHandlerFactory requestHandlerFactory) : base(requestHandlerFactory) {}
+        private readonly CurrentUserService _currentUserService;
+
+        public TimeSheetController(RequestHandlerFactory requestHandlerFactory, CurrentUserService currentUserService) 
+            : base(requestHandlerFactory)
+        {
+            _currentUserService = currentUserService;
+        }
 
         [HttpGet("{id}")]
         public ActionResult<TimeSheet> Get(int id)
@@ -26,6 +34,23 @@ namespace EmployeePortal.TimeRegistration.EndPoints
                     .Handle();
 
                 return response.TimeSheet.ValueOr(() => throw new NotImplementedException());
+            });
+        }
+
+        [HttpGet()]
+        public ActionResult<TimeSheet[]> Get()
+        {
+            var currentUser = _currentUserService.Provide();
+
+            return Execute(() =>
+            {
+                var request = new TimeSheetOverviewRequest(currentUser.Id);
+
+                var response = RequestHandlerFactory
+                    .Get<TimeSheetOverviewRequest, TimeSheetOverviewReponse>(request)
+                    .Handle();
+
+                return response.TimeSheets.ToArray();
             });
         }
     }

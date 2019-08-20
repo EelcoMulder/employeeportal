@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 
 namespace EmployeePortal.Web
 {
@@ -58,6 +60,9 @@ namespace EmployeePortal.Web
                         .Build();
                     o.Filters.Add(new AuthorizeFilter(policy));
                 })
+                .AddJsonOptions(
+                    options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                )
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var builder = new ContainerBuilder();
@@ -90,6 +95,13 @@ namespace EmployeePortal.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            // TODO: Move to Module
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "../EmployeePortal.TimeRegistration/Pages/TimeSheet")),
+                RequestPath = "/TimeSheets"
+            });
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseMvc();

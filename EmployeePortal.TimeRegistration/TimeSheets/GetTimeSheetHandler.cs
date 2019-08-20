@@ -3,6 +3,7 @@ using EmployeePortal.TimeRegistration.Infrastructure;
 using EmployeePortal.TimeRegistration.Model;
 using Optional;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeePortal.TimeRegistration.TimeSheets
 {
@@ -45,6 +46,7 @@ namespace EmployeePortal.TimeRegistration.TimeSheets
             var timesheet = 
                 _timeSheetContext
                     .TimeSheets
+                    .Include(t => t.HourLines)
                     .FirstOrDefault(t => t.Id.Equals(Request.TimeSheetId));
             return timesheet == null
                 ? new GetTimeSheetReponse(Option.None<TimeSheet>())

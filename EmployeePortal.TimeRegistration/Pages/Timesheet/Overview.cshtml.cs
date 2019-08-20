@@ -11,7 +11,8 @@ namespace EmployeePortal.TimeRegistration.Pages.Timesheet
     public class OverviewModel : RequestPageModel
     {
         private readonly CurrentUserService _currentUserService;
-        public IList<TimeSheet> TimeSheets { get; set; }
+
+        public IList<(CurrentUser user, TimeSheet timeSheet)> TimeSheets;
         public CurrentUser CurrentUser { get; set; }
         public void OnGet()
         {
@@ -24,7 +25,10 @@ namespace EmployeePortal.TimeRegistration.Pages.Timesheet
                     .Get<TimeSheetOverviewRequest, TimeSheetOverviewReponse>(request)
                     .Handle();
 
-                TimeSheets = response.TimeSheets.ToList();
+                TimeSheets = 
+                    response
+                        .TimeSheets
+                        .Select(t => (CurrentUser, t)).ToList(); // TODO: Remove CurrentUser or retrieve user: depends purpose view
             });
         }
 

@@ -18,6 +18,27 @@ namespace EmployeePortal.TimeRegistration.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("EmployeePortal.TimeRegistration.Model.HourLine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte>("DayOfMonth");
+
+                    b.Property<string>("Description");
+
+                    b.Property<byte>("Hours");
+
+                    b.Property<int>("TimeSheetId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TimeSheetId");
+
+                    b.ToTable("HourLines");
+                });
+
             modelBuilder.Entity("EmployeePortal.TimeRegistration.Model.TimeSheet", b =>
                 {
                     b.Property<int>("Id")
@@ -33,6 +54,14 @@ namespace EmployeePortal.TimeRegistration.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TimeSheets");
+                });
+
+            modelBuilder.Entity("EmployeePortal.TimeRegistration.Model.HourLine", b =>
+                {
+                    b.HasOne("EmployeePortal.TimeRegistration.Model.TimeSheet", "TimeSheet")
+                        .WithMany("HourLines")
+                        .HasForeignKey("TimeSheetId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

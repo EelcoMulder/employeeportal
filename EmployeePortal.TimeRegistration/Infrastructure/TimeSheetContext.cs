@@ -35,6 +35,13 @@ namespace EmployeePortal.TimeRegistration.Infrastructure
                 .Entity<TimeSheet>()
                 .ToTable("TimeSheets")
                 .HasKey(e => e.Id);
+            modelBuilder
+                .Entity<HourLine>()
+                .ToTable("HourLines")
+                .HasKey(e => e.Id);
+            modelBuilder.Entity<HourLine>()
+                .HasOne(p => p.TimeSheet)
+                .WithMany(b => b.HourLines);
         }
     }
 }

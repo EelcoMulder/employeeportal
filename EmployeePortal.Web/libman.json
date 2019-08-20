@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "vue@2.6.10",
+      "destination": "wwwroot/lib/vue/"
+    },
+    {
+      "library": "axios@0.19.0",
+      "destination": "wwwroot/lib/axios/",
+      "files": [
+        "axios.min.js"
+      ]
+    },
+    {
+      "library": "typescript@3.5.3",
+      "destination": "wwwroot/lib/typescript/",
+      "files": [
+        "typescript.min.js",
+        "typescript.min.js.map",
+        "typescript.js"
+      ]
+    }
+  ]
+}

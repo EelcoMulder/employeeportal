@@ -20,6 +20,7 @@ namespace EmployeePortal.Infrastructure.Services
     public class CurrentUserService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private const string FullNameClaim = "name";
 
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
@@ -38,7 +39,7 @@ namespace EmployeePortal.Infrastructure.Services
             var currentUser = new CurrentUser
             (
                 id: GetValueOrEmptyString(claims, ClaimTypes.NameIdentifier),
-                userName: GetValueOrEmptyString(claims, ClaimTypes.Name)
+                userName: GetValueOrEmptyString(claims, FullNameClaim)
             );
             return currentUser;
         }

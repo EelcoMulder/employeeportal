@@ -28,4 +28,10 @@
     <ProjectReference Include="..\EmployeePortal.TimeRegistration\EmployeePortal.TimeRegistration.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\axios\" />
+    <Folder Include="wwwroot\lib\typescript\" />
+  </ItemGroup>
+
 </Project>
