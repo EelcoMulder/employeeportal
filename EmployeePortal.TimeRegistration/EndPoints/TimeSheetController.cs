@@ -15,7 +15,7 @@ namespace EmployeePortal.TimeRegistration.EndPoints
     {
         private readonly CurrentUserService _currentUserService;
 
-        public TimeSheetController(RequestHandlerFactory requestHandlerFactory, CurrentUserService currentUserService) 
+        public TimeSheetController(RequestHandlerFactory requestHandlerFactory, CurrentUserService currentUserService)
             : base(requestHandlerFactory)
         {
             _currentUserService = currentUserService;
@@ -51,6 +51,21 @@ namespace EmployeePortal.TimeRegistration.EndPoints
                     .Handle();
 
                 return response.TimeSheets.ToArray();
+            });
+        }
+
+        [HttpPost]
+        public ActionResult<TimeSheet> Post([FromBody]TimeSheet timeSheet)
+        {
+            return Execute(() =>
+            {
+                var request = new StoreTimeSheetRequest(timeSheet);
+
+                RequestHandlerFactory
+                     .Get<StoreTimeSheetRequest, ResponseBase>(request)
+                     .Handle();
+
+                return timeSheet;
             });
         }
     }

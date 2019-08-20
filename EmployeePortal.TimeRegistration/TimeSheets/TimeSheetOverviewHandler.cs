@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using EmployeePortal.Infrastructure.RequestHandling;
+﻿using EmployeePortal.Infrastructure.RequestHandling;
 using EmployeePortal.TimeRegistration.Infrastructure;
 using EmployeePortal.TimeRegistration.Model;
-using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EmployeePortal.TimeRegistration.TimeSheets
 {
@@ -22,7 +21,7 @@ namespace EmployeePortal.TimeRegistration.TimeSheets
         public string UserId { get; }
     }
 
-    internal class TimeSheetOverviewReponse : IResponse
+    internal class TimeSheetOverviewReponse : ResponseBase
     {
         public TimeSheetOverviewReponse(IEnumerable<TimeSheet> timeSheets)
         {

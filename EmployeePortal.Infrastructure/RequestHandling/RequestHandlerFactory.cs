@@ -16,7 +16,7 @@ namespace EmployeePortal.Infrastructure.RequestHandling
 
         public RequestHandlerController<T, TY> Get<T, TY>(T request)
             where T : ValidatedRequest
-            where TY: IResponse
+            where TY: ResponseBase
         {
             var requestHandler = _container.Resolve<RequestHandler<T, TY>>(new TypedParameter(typeof(T), request));
             return new RequestHandlerController<T, TY>(requestHandler);
