@@ -2,7 +2,7 @@
 {
     public abstract class RequestHandler<T, TY>
         where T : ValidatedRequest
-        where TY : ResponseBase
+        where TY : IResponse
     {
         protected RequestHandler(T request)
         {

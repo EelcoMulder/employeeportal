@@ -1,7 +1,5 @@
 using EmployeePortal.Infrastructure.PageModel;
 using EmployeePortal.Infrastructure.RequestHandling;
-using EmployeePortal.Infrastructure.RequestHandling.Exceptions;
-using EmployeePortal.TimeRegistration.Model;
 using EmployeePortal.TimeRegistration.TimeSheets;
 using Optional;
 
@@ -9,7 +7,7 @@ namespace EmployeePortal.TimeRegistration.Pages.Timesheet
 {
     public class EditModel : RequestPageModel
     {
-        public TimeSheet TimeSheet { get; set; }
+        public Option<Model.TimeSheet> TimeSheet { get; set; }
 
         public EditModel(RequestHandlerFactory requestHandlerFactory) : base(requestHandlerFactory) {}
 
@@ -23,9 +21,7 @@ namespace EmployeePortal.TimeRegistration.Pages.Timesheet
                     .Get<GetTimeSheetRequest, GetTimeSheetReponse>(request)
                     .Handle();
 
-                TimeSheet = response
-                    .TimeSheet
-                    .ValueOr(() => throw new BusinessLogicException("Timesheet not found"));
+                TimeSheet = response.TimeSheet;
             });
         }
     }

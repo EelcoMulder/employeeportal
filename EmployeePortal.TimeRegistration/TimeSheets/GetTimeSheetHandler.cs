@@ -21,7 +21,7 @@ namespace EmployeePortal.TimeRegistration.TimeSheets
         public int TimeSheetId { get; }
     }
 
-    internal class GetTimeSheetReponse : ResponseBase
+    internal class GetTimeSheetReponse : IResponse
     {
         public GetTimeSheetReponse(Option<TimeSheet> timeSheet)
         {

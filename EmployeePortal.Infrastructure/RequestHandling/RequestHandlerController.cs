@@ -4,7 +4,7 @@ namespace EmployeePortal.Infrastructure.RequestHandling
 {
     public class RequestHandlerController<T, TY>
         where T : ValidatedRequest
-        where TY: ResponseBase
+        where TY: IResponse
     {
         private readonly RequestHandler<T, TY> _requestHandler;
 

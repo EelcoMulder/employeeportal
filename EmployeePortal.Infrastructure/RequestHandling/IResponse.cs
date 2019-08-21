@@ -1,6 +1,6 @@
 ﻿namespace EmployeePortal.Infrastructure.RequestHandling
 {
-    public class ResponseBase
+    public interface IResponse
     {
         
     }
