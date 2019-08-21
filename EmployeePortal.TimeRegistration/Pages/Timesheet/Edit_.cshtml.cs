@@ -3,22 +3,19 @@ using EmployeePortal.Infrastructure.RequestHandling;
 using EmployeePortal.Infrastructure.RequestHandling.Exceptions;
 using EmployeePortal.TimeRegistration.Model;
 using EmployeePortal.TimeRegistration.TimeSheets;
-using Optional;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeePortal.TimeRegistration.Pages.Timesheet
 {
-    public class EditModel : RequestPageModel
+    public class Edit_Model : RequestPageModel
     {
         public TimeSheet TimeSheet { get; set; }
-
-        public EditModel(RequestHandlerFactory requestHandlerFactory) : base(requestHandlerFactory) {}
-
         public void OnGet(int id)
         {
-            PageTitle = "Edit Timesheet";
             Execute(() =>
             {
                 var request = new GetTimeSheetRequest(id);
+
                 var response = RequestHandlerFactory
                     .Get<GetTimeSheetRequest, GetTimeSheetReponse>(request)
                     .Handle();
@@ -27,6 +24,21 @@ namespace EmployeePortal.TimeRegistration.Pages.Timesheet
                     .TimeSheet
                     .ValueOr(() => throw new BusinessLogicException("Timesheet not found"));
             });
+        }
+
+        public IActionResult OnPostDelete(int id, int hourLineId)
+        {
+            var request = new DeleteHourLineRequest(hourLineId);
+
+            RequestHandlerFactory
+                .Get<DeleteHourLineRequest, ResponseBase>(request)
+                .Handle();
+
+            return RedirectToPage("/Timesheet/Edit_", new {id = id});
+        }
+
+        public Edit_Model(RequestHandlerFactory requestHandlerFactory) : base(requestHandlerFactory)
+        {
         }
     }
 }

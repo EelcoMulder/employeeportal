@@ -4,26 +4,30 @@
 }
 @model EmployeePortal.TimeRegistration.Pages.Timesheet.EditModel
 <h1>Edit timesheet</h1>
+<input type="hidden" id="timesheetid" ref="timesheetid" value="@Model.TimeSheet.Id" />
 <div id="timesheets-form-component">
-    <div v-if="isViewReady == true">
-        <table>
-            <tr>
-                <td>Uren</td>
-                <td>Omschrijving</td>
-            </tr>
-            <tr v-for="t in timesheet.hourLines">
-                <td>
-                    <input v-bind:id="'hours_' + t.id"
-                        v-model="t.hours">
-                </td>
-                <td>
-                    <input v-bind:id="'description_' + t.id"
-                        v-model="t.description">
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div v-else>
+    <table>
+        <tr>
+            <td>Uren</td>
+            <td>Omschrijving</td>
+        </tr>
+        <tr v-for="t in timesheet.hourLines">
+            <td>
+                <input v-bind:id="'hours_' + t.id"
+                       v-model="t.hours">
+            </td>
+            <td>
+                <input v-bind:id="'description_' + t.id"
+                       v-model="t.description">
+                <button v-on:click="deleteHourline(t.id)">X</button>
+            </td>
+        </tr>
+        <tr>
+            <td><button v-on:click="addHourline()">+</button></td>
+            <td><button v-on:click="saveHourlines()">SAVE</button></td>
+        </tr>
+    </table>
+    <div v-if="isViewReady != true">
         <div>Loading data...</div>
     </div>
 </div>

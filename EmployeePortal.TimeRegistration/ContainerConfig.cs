@@ -12,6 +12,8 @@ namespace EmployeePortal.TimeRegistration
         {
             serviceCollection.AddTransient<RequestHandler<GetTimeSheetRequest, GetTimeSheetReponse>, GetTimeSheetHandler>();
             serviceCollection.AddTransient<RequestHandler<TimeSheetOverviewRequest, TimeSheetOverviewReponse>, TimeSheetOverviewHandler>();
+            serviceCollection.AddTransient<RequestHandler<DeleteHourLineRequest, ResponseBase>, DeleteHourLineHandler>();
+            serviceCollection.AddTransient<RequestHandler<StoreTimeSheetRequest, ResponseBase>, StoreTimeSheetHandler>();
             serviceCollection.AddTransient<TimeSheetConfiguration>();
             RegisterEntityFramework(serviceCollection);
         }

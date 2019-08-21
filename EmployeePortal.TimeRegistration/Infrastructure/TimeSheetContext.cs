@@ -28,6 +28,7 @@ namespace EmployeePortal.TimeRegistration.Infrastructure
         }
 
         public DbSet<TimeSheet> TimeSheets { get; set; }
+        public DbSet<HourLine> HourLines { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
