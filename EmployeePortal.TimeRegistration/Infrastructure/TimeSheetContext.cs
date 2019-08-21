@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using EmployeePortal.TimeRegistration.Model;
+using EmployeePortal.TimeRegistration.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;

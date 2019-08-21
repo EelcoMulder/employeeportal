@@ -1,8 +1,8 @@
 ﻿using EmployeePortal.TimeRegistration.Infrastructure;
-using EmployeePortal.TimeRegistration.Model;
-using EmployeePortal.TimeRegistration.TimeSheets;
 using Microsoft.EntityFrameworkCore;
 using System;
+using EmployeePortal.TimeRegistration.Domain.Model;
+using EmployeePortal.TimeRegistration.Domain.TimeSheets;
 using Xunit;
 
 namespace EmployeePortal.TimeRegistration.Tests.TimeSheets

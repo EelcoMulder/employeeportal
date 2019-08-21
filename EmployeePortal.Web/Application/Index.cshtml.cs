@@ -2,7 +2,7 @@
 using EmployeePortal.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace EmployeePortal.Web.Pages
+namespace EmployeePortal.Web.Application
 {
     public class IndexModel : PageModel
     {

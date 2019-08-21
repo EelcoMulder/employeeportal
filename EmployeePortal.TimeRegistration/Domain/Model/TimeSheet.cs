@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace EmployeePortal.TimeRegistration.Model
+namespace EmployeePortal.TimeRegistration.Domain.Model
 {
     public class TimeSheet
     {

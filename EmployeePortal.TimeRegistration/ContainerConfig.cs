@@ -1,6 +1,6 @@
 ﻿using EmployeePortal.Infrastructure.RequestHandling;
+using EmployeePortal.TimeRegistration.Domain.TimeSheets;
 using EmployeePortal.TimeRegistration.Infrastructure;
-using EmployeePortal.TimeRegistration.TimeSheets;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

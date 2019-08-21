@@ -7,22 +7,22 @@
         };
     },
     methods: {
-        refreshData: function(id) {
+        refreshData: function (id) {
             this.getTimeSheet(id);
         },
-        getTimeSheet: function(timesheetid) {
+        getTimeSheet: function (timesheetid) {
             var self = this;
             this.isViewReady = false;
             axios.get('/api/timesheet/' + timesheetid)
-                .then(function(response) {
+                .then(function (response) {
                     self.timesheet = response.data;
                     self.isViewReady = true;
                 })
-                .catch(function(error) {
+                .catch(function (error) {
                     alert("ERROR: " + (error.message | error));
                 });
         },
-        addHourline: function() {
+        addHourline: function () {
             var hl = { id: 0, timesheetid: 1, dayofmonth: 1, hours: 0, description: "" }
             this.timesheet.hourLines.push(hl);
         },
@@ -52,4 +52,3 @@
         this.refreshData(document.getElementById("timesheetid").value);
     }
 });
-

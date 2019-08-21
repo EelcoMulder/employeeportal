@@ -1,8 +1,8 @@
-﻿using EmployeePortal.Infrastructure.RequestHandling;
+﻿using System.Linq;
+using EmployeePortal.Infrastructure.RequestHandling;
 using EmployeePortal.TimeRegistration.Infrastructure;
-using System.Linq;
 
-namespace EmployeePortal.TimeRegistration.TimeSheets
+namespace EmployeePortal.TimeRegistration.Domain.TimeSheets
 {
     internal class DeleteHourLineRequest : ValidatedRequest
     {

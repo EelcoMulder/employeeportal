@@ -1,11 +1,11 @@
-﻿using EmployeePortal.Infrastructure.RequestHandling;
+﻿using System.Linq;
+using EmployeePortal.Infrastructure.RequestHandling;
+using EmployeePortal.TimeRegistration.Domain.Model;
 using EmployeePortal.TimeRegistration.Infrastructure;
-using EmployeePortal.TimeRegistration.Model;
-using Optional;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Optional;
 
-namespace EmployeePortal.TimeRegistration.TimeSheets
+namespace EmployeePortal.TimeRegistration.Domain.TimeSheets
 {
     internal class GetTimeSheetRequest : ValidatedRequest
     {

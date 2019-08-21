@@ -1,13 +1,13 @@
-﻿using EmployeePortal.Infrastructure.ApiController;
-using EmployeePortal.Infrastructure.RequestHandling;
-using EmployeePortal.TimeRegistration.Model;
-using EmployeePortal.TimeRegistration.TimeSheets;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Linq;
+using EmployeePortal.Infrastructure.ApiController;
+using EmployeePortal.Infrastructure.RequestHandling;
 using EmployeePortal.Infrastructure.Services;
+using EmployeePortal.TimeRegistration.Domain.Model;
+using EmployeePortal.TimeRegistration.Domain.TimeSheets;
+using Microsoft.AspNetCore.Mvc;
 
-namespace EmployeePortal.TimeRegistration.EndPoints
+namespace EmployeePortal.TimeRegistration.Application.EndPoints
 {
     [Route("api/[controller]")]
     [ApiController]

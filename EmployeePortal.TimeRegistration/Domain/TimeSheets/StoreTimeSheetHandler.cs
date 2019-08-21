@@ -1,9 +1,9 @@
 ﻿using EmployeePortal.Infrastructure.Extensions;
 using EmployeePortal.Infrastructure.RequestHandling;
+using EmployeePortal.TimeRegistration.Domain.Model;
 using EmployeePortal.TimeRegistration.Infrastructure;
-using EmployeePortal.TimeRegistration.Model;
 
-namespace EmployeePortal.TimeRegistration.TimeSheets
+namespace EmployeePortal.TimeRegistration.Domain.TimeSheets
 {
     internal class StoreTimeSheetRequest : ValidatedRequest
     {

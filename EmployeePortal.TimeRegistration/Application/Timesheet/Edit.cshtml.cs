@@ -1,17 +1,17 @@
 using EmployeePortal.Infrastructure.PageModel;
 using EmployeePortal.Infrastructure.RequestHandling;
 using EmployeePortal.Infrastructure.RequestHandling.Exceptions;
-using EmployeePortal.TimeRegistration.Model;
-using EmployeePortal.TimeRegistration.TimeSheets;
+using EmployeePortal.TimeRegistration.Domain.Model;
+using EmployeePortal.TimeRegistration.Domain.TimeSheets;
 using Optional;
 
-namespace EmployeePortal.TimeRegistration.Pages.Timesheet
+namespace EmployeePortal.TimeRegistration.Application.Timesheet
 {
     public class EditModel : RequestPageModel
     {
         public TimeSheet TimeSheet { get; set; }
 
-        public EditModel(RequestHandlerFactory requestHandlerFactory) : base(requestHandlerFactory) {}
+        public EditModel(RequestHandlerFactory requestHandlerFactory) : base(requestHandlerFactory) { }
 
         public void OnGet(int id)
         {

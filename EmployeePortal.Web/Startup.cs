@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -64,7 +65,7 @@ namespace EmployeePortal.Web
                     options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 )
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            services.Configure<RazorPagesOptions>(o => o.RootDirectory = "/Application");
             var builder = new ContainerBuilder();
             builder
                 .RegisterType<HttpContextAccessor>()
@@ -99,7 +100,7 @@ namespace EmployeePortal.Web
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "../EmployeePortal.TimeRegistration/Pages/TimeSheet")),
+                    Path.Combine(Directory.GetCurrentDirectory(), "../EmployeePortal.TimeRegistration/Application/TimeSheet")),
                 RequestPath = "/TimeSheets"
             });
             app.UseCookiePolicy();

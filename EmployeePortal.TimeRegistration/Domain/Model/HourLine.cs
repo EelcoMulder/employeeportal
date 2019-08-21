@@ -1,7 +1,4 @@
-﻿using System;
-using System.Dynamic;
-
-namespace EmployeePortal.TimeRegistration.Model
+﻿namespace EmployeePortal.TimeRegistration.Domain.Model
 {
     public class HourLine
     {
