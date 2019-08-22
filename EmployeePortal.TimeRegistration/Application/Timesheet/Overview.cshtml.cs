@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using EmployeePortal.Infrastructure.PageModel;
 using EmployeePortal.Infrastructure.RequestHandling;
 using EmployeePortal.Infrastructure.Services;
 using EmployeePortal.TimeRegistration.Domain.Model;

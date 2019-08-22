@@ -1,10 +1,9 @@
 ﻿using System;
-using EmployeePortal.Infrastructure.RequestHandling;
 using EmployeePortal.Infrastructure.RequestHandling.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EmployeePortal.Infrastructure.ApiController
+namespace EmployeePortal.Infrastructure.RequestHandling
 {
     public class RequestController : ControllerBase
     {

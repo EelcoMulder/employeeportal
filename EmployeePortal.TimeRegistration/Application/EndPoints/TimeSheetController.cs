@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using EmployeePortal.Infrastructure.ApiController;
 using EmployeePortal.Infrastructure.RequestHandling;
 using EmployeePortal.Infrastructure.Services;
 using EmployeePortal.TimeRegistration.Domain.Model;

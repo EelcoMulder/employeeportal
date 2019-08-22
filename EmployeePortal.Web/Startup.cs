@@ -103,6 +103,12 @@ namespace EmployeePortal.Web
                     Path.Combine(Directory.GetCurrentDirectory(), "../EmployeePortal.TimeRegistration/Application/TimeSheet")),
                 RequestPath = "/TimeSheets"
             });
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "../EmployeePortal.SkillManagement/Application/Skills")),
+                RequestPath = "/Skills"
+            });
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseMvc();

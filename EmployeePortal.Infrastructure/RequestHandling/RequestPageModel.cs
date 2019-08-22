@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using EmployeePortal.Infrastructure.RequestHandling;
 using EmployeePortal.Infrastructure.RequestHandling.Exceptions;
 
-namespace EmployeePortal.Infrastructure.PageModel
+namespace EmployeePortal.Infrastructure.RequestHandling
 {
     public class RequestPageModel : Microsoft.AspNetCore.Mvc.RazorPages.PageModel
     {

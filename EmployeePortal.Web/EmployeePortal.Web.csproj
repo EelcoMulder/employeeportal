@@ -25,6 +25,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\EmployeePortal.SkillManagement\EmployeePortal.SkillManagement.csproj" />
     <ProjectReference Include="..\EmployeePortal.TimeRegistration\EmployeePortal.TimeRegistration.csproj" />
   </ItemGroup>
 
