@@ -1,15 +1,17 @@
-﻿using EmployeePortal.Infrastructure.RequestHandling;
+﻿using Autofac;
+using EmployeePortal.Infrastructure.Logging;
+using EmployeePortal.Infrastructure.RequestHandling;
 using EmployeePortal.Infrastructure.Services;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace EmployeePortal.Infrastructure
 {
     public class ContainerConfig
     {
-        public static void Configure(IServiceCollection serviceCollection)
+        public static void Configure(ContainerBuilder containerBuilder)
         {
-            serviceCollection.AddTransient<RequestHandlerFactory>();
-            serviceCollection.AddTransient<CurrentUserService>();
+            containerBuilder.RegisterType<LoggingInterceptor>();
+            containerBuilder.RegisterType<RequestHandlerFactory>();
+            containerBuilder.RegisterType<CurrentUserService>();
         }
     }
 }

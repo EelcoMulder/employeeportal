@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using EmployeePortal.TimeRegistration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -29,6 +30,7 @@ namespace EmployeePortal.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -71,8 +73,8 @@ namespace EmployeePortal.Web
                 .RegisterType<HttpContextAccessor>()
                 .As<IHttpContextAccessor>();
 
-            Infrastructure.ContainerConfig.Configure(services);
-            TimeRegistration.ContainerConfig.Configure(services);
+            Infrastructure.ContainerConfig.Configure(builder);
+            TimeRegistration.ModuleConfigurator.ConfigureServices(services, builder);
 
             builder.Populate(services);
             var applicationContainer = builder.Build();
@@ -96,13 +98,8 @@ namespace EmployeePortal.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            ModuleConfigurator.ConfigureModule(app);
             // TODO: Move to Module
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "../EmployeePortal.TimeRegistration/Application/TimeSheet")),
-                RequestPath = "/TimeSheets"
-            });
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
