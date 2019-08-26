@@ -10,6 +10,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+// Configure
+// - Config
+// - Handlers
+// - Services
+// - Static Files
+// - EntityFramework
 
 namespace EmployeePortal.TimeRegistration
 {
@@ -22,7 +28,6 @@ namespace EmployeePortal.TimeRegistration
             RegisterHandlers(containerBuilder);
             RegisterEntityFramework(serviceCollection, serviceProvider);
         }
-
 
         public static void ConfigureModule(IApplicationBuilder applicationBuilder)
         {
@@ -44,6 +49,7 @@ namespace EmployeePortal.TimeRegistration
 
         private static void RegisterWithLoggingInterceptor<T, TY>(ContainerBuilder containerBuilder)
         {
+            // This could be a decorator
             containerBuilder
                 .RegisterType<T>()
                 .As<TY>()

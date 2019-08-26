@@ -12,6 +12,9 @@ namespace EmployeePortal.Infrastructure
             containerBuilder.RegisterType<LoggingInterceptor>();
             containerBuilder.RegisterType<RequestHandlerFactory>();
             containerBuilder.RegisterType<CurrentUserService>();
+            containerBuilder
+                .RegisterType<RequestHandlerFactory>()
+                .As<IRequestHandlerFactory>();
         }
     }
 }

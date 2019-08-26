@@ -2,7 +2,7 @@
 
 namespace EmployeePortal.Infrastructure.RequestHandling
 {
-    public class RequestHandlerFactory
+    public class RequestHandlerFactory : IRequestHandlerFactory
     {
         private readonly IComponentContext _container;
 

@@ -1,11 +1,11 @@
-﻿using EmployeePortal.TimeRegistration.Infrastructure;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using EmployeePortal.TimeRegistration.Domain.Model;
 using EmployeePortal.TimeRegistration.Domain.TimeSheets;
+using EmployeePortal.TimeRegistration.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace EmployeePortal.TimeRegistration.Tests.TimeSheets
+namespace EmployeePortal.TimeRegistration.Tests.Domain.TimeSheets
 {
     public class GetTimeSheetHandlerTest
     {
@@ -45,7 +45,7 @@ namespace EmployeePortal.TimeRegistration.Tests.TimeSheets
         }
 
         [Fact]
-        public void GetTimeSheetHandler_WhenCalledWithValidId_ItShouldReturnGetTimeSheetReponseWithNoTimeSheet()
+        public void GetTimeSheetHandler_WhenCalledWithInvalidId_ItShouldReturnGetTimeSheetReponseWithNoTimeSheet()
         {
             // Arrange
             var request = new GetTimeSheetRequest(InValidTimeSheetId);

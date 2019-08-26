@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeePortal.Infrastructure.RequestHandling
 {
-    public class RequestController : ControllerBase
+    public abstract class RequestController : ControllerBase
     {
-        public RequestHandlerFactory RequestHandlerFactory;
+        public IRequestHandlerFactory RequestHandlerFactory;
 
-        public RequestController(RequestHandlerFactory requestHandlerFactory)
+        protected RequestController(IRequestHandlerFactory requestHandlerFactory)
         {
             RequestHandlerFactory = requestHandlerFactory;
         }
@@ -21,38 +21,46 @@ namespace EmployeePortal.Infrastructure.RequestHandling
                 executionCode.Invoke();
                 return Ok();
             }
-            catch (RequestException e) when (e is ValidationException exception)
+            catch (ValidationException exception)
             {
-                return BadRequest(e);
+                return BadRequest(exception);
             }
-            catch (RequestException e) when (e is BusinessLogicException exception)
+            catch (EntityNotFoundException exception)
             {
-                return Conflict(e);
+                return NotFound(exception);
             }
-            catch (RequestException e) when (e is InfrastructureException exception)
+            catch (BusinessLogicException exception)
+            {
+                return Conflict(exception);
+            }
+            catch (InfrastructureException exception)
             {
                 return new StatusCodeResult(StatusCodes.Status503ServiceUnavailable);
-            }
+            }// TODO: Unhandled
         }
 
         public ActionResult<T> Execute<T>(Func<T> executionCode)
         {
             try
             {
-                return new ActionResult<T>(executionCode.Invoke());
+                return Ok(executionCode.Invoke());
             }
-            catch (RequestException e) when (e is ValidationException exception)
+            catch (ValidationException exception)
             {
-                return BadRequest(e);
+                return BadRequest(exception);
             }
-            catch (RequestException e) when (e is BusinessLogicException exception)
+            catch (EntityNotFoundException exception)
             {
-                return Conflict(e);
+                return NotFound(exception);
             }
-            catch (RequestException e) when (e is InfrastructureException exception)
+            catch (BusinessLogicException exception)
+            {
+                return Conflict(exception);
+            }
+            catch (InfrastructureException)
             {
                 return new StatusCodeResult(StatusCodes.Status503ServiceUnavailable);
-            }
+            }// TODO: Unhandled
         }
     }
 }

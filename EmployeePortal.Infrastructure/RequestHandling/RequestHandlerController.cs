@@ -2,7 +2,8 @@
 
 namespace EmployeePortal.Infrastructure.RequestHandling
 {
-    public class RequestHandlerController<T, TY>
+    //Orchestrator? Dispatcher?
+    public class RequestHandlerController<T, TY> : IRequestHandlerController<TY> 
         where T : ValidatedRequest
         where TY: ResponseBase
     {
@@ -15,7 +16,6 @@ namespace EmployeePortal.Infrastructure.RequestHandling
 
         public TY Handle()
         {
-            // TODO: Logging here?
             if (!_requestHandler.Request.IsValid)
             {
                 throw new ValidationException(_requestHandler.Request.Exceptions);

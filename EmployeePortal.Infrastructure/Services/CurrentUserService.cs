@@ -27,7 +27,7 @@ namespace EmployeePortal.Infrastructure.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public CurrentUser? Provide()
+        public virtual CurrentUser? Provide()
         {
             if (!_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
             {

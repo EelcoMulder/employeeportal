@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
 using EmployeePortal.Infrastructure.RequestHandling;
+using EmployeePortal.Infrastructure.RequestHandling.Exceptions;
 using EmployeePortal.Infrastructure.Services;
 using EmployeePortal.TimeRegistration.Domain.Model;
 using EmployeePortal.TimeRegistration.Domain.TimeSheets;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace EmployeePortal.TimeRegistration.Application.EndPoints
 {
@@ -14,7 +16,7 @@ namespace EmployeePortal.TimeRegistration.Application.EndPoints
     {
         private readonly CurrentUserService _currentUserService;
 
-        public TimeSheetController(RequestHandlerFactory requestHandlerFactory, CurrentUserService currentUserService)
+        public TimeSheetController(IRequestHandlerFactory requestHandlerFactory, CurrentUserService currentUserService)
             : base(requestHandlerFactory)
         {
             _currentUserService = currentUserService;
@@ -32,11 +34,11 @@ namespace EmployeePortal.TimeRegistration.Application.EndPoints
                     .Get<GetTimeSheetRequest, GetTimeSheetReponse>(request)
                     .Handle();
 
-                return response.TimeSheet.ValueOr(() => throw new NotImplementedException());
+                return response.TimeSheet.ValueOr(() => throw new EntityNotFoundException());
             });
         }
 
-        [HttpGet()]
+        [HttpGet]
         public ActionResult<TimeSheet[]> Get()
         {
             var currentUser = _currentUserService.Provide();
