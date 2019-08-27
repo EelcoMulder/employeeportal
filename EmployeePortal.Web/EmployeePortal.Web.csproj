@@ -8,6 +8,10 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="empty.ts" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="4.9.4" />

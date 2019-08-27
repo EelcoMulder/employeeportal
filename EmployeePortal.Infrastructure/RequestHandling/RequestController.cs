@@ -33,7 +33,7 @@ namespace EmployeePortal.Infrastructure.RequestHandling
             {
                 return Conflict(exception);
             }
-            catch (InfrastructureException exception)
+            catch (InfrastructureException)
             {
                 return new StatusCodeResult(StatusCodes.Status503ServiceUnavailable);
             }// TODO: Unhandled

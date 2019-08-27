@@ -5,21 +5,25 @@ var WebpackNotifierPlugin = require("webpack-notifier");
 var BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 
 module.exports = {
-    entry: "../EmployeePortal.SkillManagement/Application/Skills/Overview.jsx",
+    entry: {
+        overview: "../EmployeePortal.SkillManagement/Application/Skills/Overview.jsx",
+        counter: "../EmployeePortal.SkillManagement/Application/Skills/Counter.tsx",
+        appje: "../EmployeePortal.SkillManagement/Application/Skills/Appje.tsx"
+    },
     output: {
         path: path.resolve(__dirname, "../EmployeePortal.SkillManagement/Application/Skills/"),
-        filename: "Overview.js"
+        filename: "[name].js"
     },
     resolve: {
         modules: [
             path.resolve("../EmployeePortal.Web/node_modules/")
         ],
-        extensions: [".js", ".jsx"]
+        extensions: [".ts", ".tsx", ".js", ".jsx"]
     },
     module: {
         rules: [
             {
-                test: /\.jsx$/,
+                test: /\.(ts|js)x?$/,
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
