@@ -1,8 +1,10 @@
 ﻿@page
 @{
-    Layout = "_Layout";
+    Layout = "~/Application/Shared/_Layout.cshtml";
 }
 @model EmployeePortal.SkillManagement.Application.Skills.OverviewModel
-<h1>Test 123</h1>
-@{
+<div id="app"></div>
+@section Scripts {
+    <script src="Overview.js"></script>
+    <script src="~/react/cjs/react.development.js"></script>
 }

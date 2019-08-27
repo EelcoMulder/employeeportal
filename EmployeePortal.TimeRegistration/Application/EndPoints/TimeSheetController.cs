@@ -1,12 +1,10 @@
-﻿using System;
-using System.Linq;
-using EmployeePortal.Infrastructure.RequestHandling;
+﻿using EmployeePortal.Infrastructure.RequestHandling;
 using EmployeePortal.Infrastructure.RequestHandling.Exceptions;
 using EmployeePortal.Infrastructure.Services;
 using EmployeePortal.TimeRegistration.Domain.Model;
 using EmployeePortal.TimeRegistration.Domain.TimeSheets;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Linq;
 
 namespace EmployeePortal.TimeRegistration.Application.EndPoints
 {

@@ -31,8 +31,10 @@
 
 
   <ItemGroup>
+    <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\lib\axios\" />
     <Folder Include="wwwroot\lib\typescript\" />
+    <Folder Include="wwwroot\react\cjs\" />
   </ItemGroup>
 
 </Project>

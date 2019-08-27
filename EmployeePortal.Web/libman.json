@@ -21,6 +21,14 @@
         "typescript.min.js.map",
         "typescript.js"
       ]
+    },
+    {
+      "library": "react@16.9.0",
+      "destination": "wwwroot/react/",
+      "files": [
+        "cjs/react.development.js",
+        "cjs/react.production.min.js"
+      ]
     }
   ]
 }
