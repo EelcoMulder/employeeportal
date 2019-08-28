@@ -5,7 +5,7 @@ using EmployeePortal.Infrastructure.Services;
 using EmployeePortal.TimeRegistration.Domain.Model;
 using EmployeePortal.TimeRegistration.Domain.TimeSheets;
 
-namespace EmployeePortal.TimeRegistration.Application.Timesheet
+namespace EmployeePortal.TimeRegistration.Application.Timesheets
 {
     public class OverviewModel : RequestPageModel
     {

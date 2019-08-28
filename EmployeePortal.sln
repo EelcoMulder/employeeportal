@@ -15,7 +15,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeePortal.Infrastructu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeePortal.SkillManagement", "EmployeePortal.SkillManagement\EmployeePortal.SkillManagement.csproj", "{09818F8F-C2FE-4BB5-BB59-07439F938830}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeePortal.Infrastructure.Tests", "EmployeePortal.Infrastructure.Tests\EmployeePortal.Infrastructure.Tests.csproj", "{BBC642D3-90BF-48CA-8C40-1A61D7B967E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeePortal.Infrastructure.Tests", "EmployeePortal.Infrastructure.Tests\EmployeePortal.Infrastructure.Tests.csproj", "{BBC642D3-90BF-48CA-8C40-1A61D7B967E1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{E1E72693-11F6-447A-8C91-FA6B5EED5368}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

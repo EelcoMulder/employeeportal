@@ -2,9 +2,8 @@ using EmployeePortal.Infrastructure.RequestHandling;
 using EmployeePortal.Infrastructure.RequestHandling.Exceptions;
 using EmployeePortal.TimeRegistration.Domain.Model;
 using EmployeePortal.TimeRegistration.Domain.TimeSheets;
-using Optional;
 
-namespace EmployeePortal.TimeRegistration.Application.Timesheet
+namespace EmployeePortal.TimeRegistration.Application.Timesheets
 {
     public class EditModel : RequestPageModel
     {
