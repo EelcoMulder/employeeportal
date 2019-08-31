@@ -2,7 +2,7 @@
 @{
     Layout = "_Layout";
 }
-@model EmployeePortal.TimeRegistration.Application.Timesheet.OverviewModel
+@model EmployeePortal.TimeRegistration.Application.Timesheets.OverviewModel
 <div id="timesheets-list-component">
     <div v-if="isViewReady == true">
         <table>
@@ -15,7 +15,7 @@
                 <td></td>
                 <td>{{ t.month }}</td>
                 <td>{{ t.year }}</td>
-                <td><a v-bind:href="'/TimeSheet/Edit/' + t.id">Edit</a></td>
+                <td><a v-bind:href="'/TimeSheets/Edit/' + t.id">Edit</a></td>
             </tr>
         </table>
     </div>

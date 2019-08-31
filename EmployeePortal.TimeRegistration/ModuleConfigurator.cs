@@ -4,6 +4,7 @@ using Autofac.Extras.DynamicProxy;
 using EmployeePortal.Infrastructure.Logging;
 using EmployeePortal.Infrastructure.Module;
 using EmployeePortal.Infrastructure.RequestHandling;
+using EmployeePortal.Infrastructure.Services;
 using EmployeePortal.TimeRegistration.Domain.TimeSheets;
 using EmployeePortal.TimeRegistration.Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -31,10 +32,10 @@ namespace EmployeePortal.TimeRegistration
 
         public static void ConfigureModule(IApplicationBuilder applicationBuilder)
         {
+            var timeSheetDirectory = Path.Combine(RootDirectoryService.Get(), "EmployeePortal.TimeRegistration/Application/TimeSheets");
             applicationBuilder.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "../EmployeePortal.TimeRegistration/Application/TimeSheet")),
+                FileProvider = new PhysicalFileProvider(timeSheetDirectory),
                 RequestPath = "/TimeSheets"
             });
         }

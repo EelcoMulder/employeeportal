@@ -27,4 +27,14 @@
     <ProjectReference Include="..\EmployeePortal.Infrastructure\EmployeePortal.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ContentWithTargetPath Include="Application\Skills\**\*.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <TargetPath>/EmployeePortal.SkillManagement\Application\Skills\%(FileName)%(Extension)</TargetPath>
+    </ContentWithTargetPath>
+    <ContentWithTargetPath Include="Application\Skills\**\*.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <TargetPath>/EmployeePortal.SkillManagement\Application\Skills\%(FileName)%(Extension)</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using EmployeePortal.Infrastructure.Services;
 using EmployeePortal.TimeRegistration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -100,10 +101,10 @@ namespace EmployeePortal.Web
             app.UseStaticFiles();
             ModuleConfigurator.ConfigureModule(app);
             // TODO: Move to Module
+            var skillsDirectory = Path.Combine(RootDirectoryService.Get(), "EmployeePortal.SkillManagement/Application/Skills");
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "../EmployeePortal.SkillManagement/Application/Skills")),
+                FileProvider = new PhysicalFileProvider(skillsDirectory),
                 RequestPath = "/Skills"
             });
             app.UseCookiePolicy();

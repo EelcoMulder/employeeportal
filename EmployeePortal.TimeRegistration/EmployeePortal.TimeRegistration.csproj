@@ -29,11 +29,11 @@
   <ItemGroup>
     <ContentWithTargetPath Include="Application\Timesheets\**\*.cshtml">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <TargetPath>EmployeePortal.TimeRegistration\Application\TimeSheet\%(FileName)%(Extension)</TargetPath>
+      <TargetPath>EmployeePortal.TimeRegistration\Application\TimeSheets\%(FileName)%(Extension)</TargetPath>
     </ContentWithTargetPath>
     <ContentWithTargetPath Include="Application\Timesheets\**\*.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <TargetPath>EmployeePortal.TimeRegistration\Application\TimeSheet\%(FileName)%(Extension)</TargetPath>
+      <TargetPath>EmployeePortal.TimeRegistration\Application\TimeSheets\%(FileName)%(Extension)</TargetPath>
     </ContentWithTargetPath>
   </ItemGroup>
 </Project>
