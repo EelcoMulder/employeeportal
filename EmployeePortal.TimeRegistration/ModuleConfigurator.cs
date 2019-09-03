@@ -9,6 +9,7 @@ using EmployeePortal.TimeRegistration.Domain.TimeSheets;
 using EmployeePortal.TimeRegistration.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 // Configure
@@ -22,15 +23,36 @@ namespace EmployeePortal.TimeRegistration
 {
     public class ModuleConfigurator : IModuleConfigurator
     {
-        public static void ConfigureServices(IServiceCollection serviceCollection, ContainerBuilder containerBuilder)
+        private readonly IConfiguration _configuration;
+        private readonly ContainerBuilder _containerBuilder;
+        private TimeSheetConfiguration _timeSheetConfiguration;
+
+        public ModuleConfigurator(
+            IConfiguration configuration,
+            ContainerBuilder containerBuilder)
         {
-            serviceCollection.AddTransient<TimeSheetConfiguration>();
-            var serviceProvider = serviceCollection.BuildServiceProvider();
-            RegisterHandlers(containerBuilder);
-            RegisterEntityFramework(serviceCollection, serviceProvider);
+            _configuration = configuration;
+            _containerBuilder = containerBuilder;
         }
 
-        public static void ConfigureModule(IApplicationBuilder applicationBuilder)
+        public void ConfigureServices()
+        {
+            _timeSheetConfiguration = new TimeSheetConfiguration(_configuration);
+            _containerBuilder.RegisterInstance(_timeSheetConfiguration);
+            RegisterHandlers(_containerBuilder);
+
+            _containerBuilder.Register(c =>
+            {
+                var opt = new DbContextOptionsBuilder<TimeSheetContext>();
+                opt.UseSqlServer(_timeSheetConfiguration.ConnectionString);
+
+                return new TimeSheetContext(opt.Options);
+            })
+            .AsSelf()
+            .InstancePerLifetimeScope();
+        }
+
+        public void ConfigureModule(IApplicationBuilder applicationBuilder)
         {
             var timeSheetDirectory = Path.Combine(RootDirectoryService.Get(), "EmployeePortal.TimeRegistration/Application/TimeSheets");
             applicationBuilder.UseStaticFiles(new StaticFileOptions
@@ -56,15 +78,6 @@ namespace EmployeePortal.TimeRegistration
                 .As<TY>()
                 .EnableClassInterceptors()
                 .InterceptedBy(typeof(LoggingInterceptor));
-        }
-
-        private static void RegisterEntityFramework(IServiceCollection services, ServiceProvider serviceProvider)
-        {
-            var configuration = serviceProvider.GetService<TimeSheetConfiguration>();
-            services
-                .AddEntityFrameworkSqlServer()
-                .AddDbContext<TimeSheetContext>(options =>
-                    options.UseSqlServer(configuration.ConnectionString));
         }
     }
 }

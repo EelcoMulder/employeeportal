@@ -1,9 +1,6 @@
-using System;
-using System.IO;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using EmployeePortal.Infrastructure.Services;
-using EmployeePortal.TimeRegistration;
+using EmployeePortal.Infrastructure.Module;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -15,7 +12,9 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EmployeePortal.Web
 {
@@ -26,12 +25,11 @@ namespace EmployeePortal.Web
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
+        private IConfiguration Configuration { get; }
+        private IContainer Container { get; set; } = default!;
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -69,18 +67,30 @@ namespace EmployeePortal.Web
                 )
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.Configure<RazorPagesOptions>(o => o.RootDirectory = "/Application");
+
             var builder = new ContainerBuilder();
             builder
                 .RegisterType<HttpContextAccessor>()
                 .As<IHttpContextAccessor>();
 
             Infrastructure.ContainerConfig.Configure(builder);
-            TimeRegistration.ModuleConfigurator.ConfigureServices(services, builder);
 
+
+            //builder.RegisterType<TimeRegistration.ModuleConfigurator>().As<IModuleConfigurator>();
+            //builder.RegisterType<SkillManagement.ModuleConfigurator>().As<IModuleConfigurator>();
+            var timeRegistrationModuleConfigurator = new TimeRegistration.ModuleConfigurator(Configuration, builder);
+            timeRegistrationModuleConfigurator.ConfigureServices();
+            builder.RegisterInstance(timeRegistrationModuleConfigurator).As<IModuleConfigurator>();
+            var skillManagementModuleConfigurator = new SkillManagement.ModuleConfigurator(Configuration, builder);
+            skillManagementModuleConfigurator.ConfigureServices();
+            builder.RegisterInstance(skillManagementModuleConfigurator).As<IModuleConfigurator>();
             builder.Populate(services);
-            var applicationContainer = builder.Build();
+            Container.Resolve<IEnumerable<IModuleConfigurator>>()
+                .ToList()
+                .ForEach(m => m.ConfigureServices());
 
-            return new AutofacServiceProvider(applicationContainer);
+            Container = builder.Build();
+            return new AutofacServiceProvider(Container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -99,14 +109,10 @@ namespace EmployeePortal.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            ModuleConfigurator.ConfigureModule(app);
-            // TODO: Move to Module
-            var skillsDirectory = Path.Combine(RootDirectoryService.Get(), "EmployeePortal.SkillManagement/Application/Skills");
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(skillsDirectory),
-                RequestPath = "/Skills"
-            });
+            Container.Resolve<IEnumerable<IModuleConfigurator>>()
+                .ToList()
+                .ForEach(m => m.ConfigureModule(app));
+
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseMvc();

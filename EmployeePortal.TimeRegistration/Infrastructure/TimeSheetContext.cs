@@ -16,13 +16,8 @@ namespace EmployeePortal.TimeRegistration.Infrastructure
         {
             public TimeSheetContext CreateDbContext(string[] args)
             {
-                IConfigurationRoot configuration = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json")
-                    .Build();
                 var builder = new DbContextOptionsBuilder<TimeSheetContext>();
-                var connectionString = configuration.GetConnectionString("TimeSheetContext");
-                builder.UseSqlServer(connectionString);
+                ConfigureDbContext(builder);
                 return new TimeSheetContext(builder.Options);
             }
         }
@@ -43,6 +38,16 @@ namespace EmployeePortal.TimeRegistration.Infrastructure
             modelBuilder.Entity<HourLine>()
                 .HasOne(p => p.TimeSheet)
                 .WithMany(b => b.HourLines);
+        }
+
+        private static void ConfigureDbContext(DbContextOptionsBuilder optionsBuilder)
+        {
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+            var connectionString = configuration.GetConnectionString("TimeSheetContext");
+            optionsBuilder.UseSqlServer(connectionString);
         }
     }
 }
