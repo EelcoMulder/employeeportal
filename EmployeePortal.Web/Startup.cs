@@ -85,9 +85,9 @@ namespace EmployeePortal.Web
             skillManagementModuleConfigurator.ConfigureServices();
             builder.RegisterInstance(skillManagementModuleConfigurator).As<IModuleConfigurator>();
             builder.Populate(services);
-            Container.Resolve<IEnumerable<IModuleConfigurator>>()
-                .ToList()
-                .ForEach(m => m.ConfigureServices());
+            //Container.Resolve<IEnumerable<IModuleConfigurator>>()
+            //    .ToList()
+            //    .ForEach(m => m.ConfigureServices());
 
             Container = builder.Build();
             return new AutofacServiceProvider(Container);
